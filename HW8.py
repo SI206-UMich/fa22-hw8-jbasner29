@@ -44,12 +44,17 @@ def barchart_restaurant_categories(db_filename):
     
     cat = list(d2.keys())
     num = list(d2.values())
+
+
+    print(type(cat))
+
+    fig = plt.figure(figsize=(10,5))
     plt.title("Types of Restaurants on South U")
-    plt.barh(cat, num)
+    plt.bar(cat, num)
     plt.ylabel("Categories")
     plt.xlabel("# of Restaurants")
     plt.tight_layout()
-    plt.show
+    plt.show()
     return d2
     #created barchart just couldn't get information to display spent a lot of time on this and couldn't figure it out
 
