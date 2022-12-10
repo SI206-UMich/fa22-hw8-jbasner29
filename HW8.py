@@ -13,16 +13,17 @@ def get_restaurant_data(db_filename):
     path = os.path.dirname(os.path.abspath(__file__))
     conn = sqlite3.connect(path + '/' + db_filename)
     cur = conn.cursor()
+    restaurant = cur.fetchall()
     cur.execute("SELECT name, category, building, rating FROM rest JOIN buildings ON rest.building_id = buildings.id JOIN categories ON rest.categories_id = categories.id")
-    rest = cur.fetchall()
+    
 
 
-    for rests in rest:
+    for r in restaurant:
         dict = {}
-        dict["name"] = rest[0]
-        dict["category"] = rest[2]
-        dict["building"] = rest[1]
-        dict["rating"] = rest[3]
+        dict["name"] = restaurant[0]
+        dict["category"] = restaurant[1]
+        dict["building"] = restaurant[2]
+        dict["rating"] = restaurant[3]
         l1.append(dict)
 
     return l1
@@ -48,8 +49,8 @@ def highest_rated_category(db_filename):#Do this through DB as well
 
 #Try calling your functions here
 def main():
-    rfunction = get_restaurant_data["South_U_Restaurants.db"]
-    print(rfunction)
+    function1 = get_restaurant_data["South_U_Restaurants.db"]
+    print(function1)
 
 class TestHW8(unittest.TestCase):
     def setUp(self):
