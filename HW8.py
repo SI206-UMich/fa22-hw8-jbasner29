@@ -26,6 +26,8 @@ def get_restaurant_data(db_filename):
         l1.append(d1)
     return l1
 
+    #finished
+
 
 def barchart_restaurant_categories(db_filename):
     """
@@ -40,16 +42,17 @@ def barchart_restaurant_categories(db_filename):
     restaurants = cur.fetchall()
     d2 = {}
 
+    
+    
+    
     cat = list(d2.keys())
     num = list(d2.values())
-    
     plt.title("Types of Restaurants on South U")
     plt.barh(cat, num)
     plt.ylabel("Categories")
     plt.xlabel("# of Restaurants")
     plt.tight_layout()
     plt.show
-
     return d2
     #created barchart just couldn't get information to display spent a lot of time on this and couldn't figure it out
 
