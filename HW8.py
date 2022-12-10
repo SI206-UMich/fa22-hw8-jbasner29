@@ -9,24 +9,12 @@ def get_restaurant_data(db_filename):
     dictionaries. The key:value pairs should be the name, category, building, and rating
     of each restaurant in the database.
     """
-    l1 = []
+   
     path = os.path.dirname(os.path.abspath(__file__))
     conn = sqlite3.connect(path + '/' + db_filename)
     cur = conn.cursor()
-    restaurant = cur.fetchall()
-    cur.execute("SELECT name, category, building, rating FROM rest JOIN buildings ON rest.building_id = buildings.id JOIN categories ON rest.categories_id = categories.id")
-    
-
-
-    for r in restaurant:
-        dict = {}
-        dict["name"] = restaurant[0]
-        dict["category"] = restaurant[1]
-        dict["building"] = restaurant[2]
-        dict["rating"] = restaurant[3]
-        l1.append(dict)
-
-    return l1
+    cur.execute("SELECT name, category, builing, rating FROM restaurants JOIN buildings ON restaurants.building_id = buildings.id JOIN categories ON restaurant.category_id = categories.id")
+    restaurants = cur.fetchall()
 
 
 def barchart_restaurant_categories(db_filename):
@@ -35,7 +23,13 @@ def barchart_restaurant_categories(db_filename):
     restaurant categories and the values should be the number of restaurants in each category. The function should
     also create a bar chart with restaurant categories and the counts of each category.
     """
-    pass
+    path = os.path.dirname(os.path.abspath(__file__))
+    conn = sqlite3.connect(path + '/' + db_filename)
+    cur = conn.cursor()
+    cur.execute("SELECT category, COUNT(category_id) FROM restaurants JOIN categories ON restaurants.category_id GROUP BY category_id ORDER BY COUNT(category_id) ASC")
+    restaurants = cur.fetchall()
+
+    
 
 #EXTRA CREDIT
 def highest_rated_category(db_filename):#Do this through DB as well
@@ -49,8 +43,7 @@ def highest_rated_category(db_filename):#Do this through DB as well
 
 #Try calling your functions here
 def main():
-    function1 = get_restaurant_data["South_U_Restaurants.db"]
-    print(function1)
+    pass
 
 class TestHW8(unittest.TestCase):
     def setUp(self):
