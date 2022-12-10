@@ -9,12 +9,22 @@ def get_restaurant_data(db_filename):
     dictionaries. The key:value pairs should be the name, category, building, and rating
     of each restaurant in the database.
     """
-   
+    l1 = []
+
     path = os.path.dirname(os.path.abspath(__file__))
     conn = sqlite3.connect(path + '/' + db_filename)
     cur = conn.cursor()
-    cur.execute("SELECT name, category, builing, rating FROM restaurants JOIN buildings ON restaurants.building_id = buildings.id JOIN categories ON restaurant.category_id = categories.id")
+    cur.execute("SELECT name, building, category, rating FROM restaurants JOIN buildings ON restaurants.building_id = buildings.id JOIN categories ON restaurants.category_id = categories.id")
     restaurants = cur.fetchall()
+
+    for final in restaurants:
+        d1 = {}
+        d1["name"] = final[0]
+        d1["category"] = final[2]
+        d1["building"] = final[1]
+        d1["rating"] = final[3]
+        l1.append(d1)
+    return l1
 
 
 def barchart_restaurant_categories(db_filename):
@@ -28,8 +38,17 @@ def barchart_restaurant_categories(db_filename):
     cur = conn.cursor()
     cur.execute("SELECT category, COUNT(category_id) FROM restaurants JOIN categories ON restaurants.category_id GROUP BY category_id ORDER BY COUNT(category_id) ASC")
     restaurants = cur.fetchall()
+    d2 = {}
 
-    
+    plt.title("Types of Restaurants on South U")
+    plt.barh()
+    plt.ylabel("Categories")
+    plt.xlabel("# of Restaurants")
+
+    #DONT KNOW HOW TO DO THIS JUST DID AS MUCH AS I KNOW FOR PARTIAL CREDIT (Know I need graph but not how to do the rest)
+
+
+
 
 #EXTRA CREDIT
 def highest_rated_category(db_filename):#Do this through DB as well
@@ -43,7 +62,10 @@ def highest_rated_category(db_filename):#Do this through DB as well
 
 #Try calling your functions here
 def main():
-    pass
+    part1 = get_restaurant_data("South_U_Restaurants.db")
+    print(part1)
+    part2 = barchart_restaurant_categories("South_U_Restaurants.db")
+    print(part2)
 
 class TestHW8(unittest.TestCase):
     def setUp(self):
