@@ -20,13 +20,11 @@ def get_restaurant_data(db_filename):
     for final in restaurants:
         d1 = {}
         d1["name"] = final[0]
-        d1["category"] = final[2]
         d1["building"] = final[1]
+        d1["category"] = final[2]
         d1["rating"] = final[3]
         l1.append(d1)
     return l1
-
-    #finished
 
 
 def barchart_restaurant_categories(db_filename):
@@ -42,7 +40,6 @@ def barchart_restaurant_categories(db_filename):
     restaurants = cur.fetchall()
     d2 = {}
 
-    
     
     
     cat = list(d2.keys())
